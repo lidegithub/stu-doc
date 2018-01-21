@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nginx使用手册</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="nginx-使用手册">nginx 使用手册</h1>
+<h2 id="常用命令">常用命令</h2>
+<ol>
+<li>windows环境下</li>
+</ol>
+<p>至nginx.exe目录，cmd中执行start nginx</p>
+
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动</td>
+<td>start nginx</td>
+</tr>
+<tr>
+<td>重启</td>
+<td>nginx -s reload</td>
+</tr>
+<tr>
+<td>关闭</td>
+<td>nginx -s stop或者nginx -s quit</td>
+</tr>
+</tbody>
+</table><h2 id="nginx负载均衡">nginx负载均衡</h2>
+<p>一个简单的负载均衡，把ghlp.lidechenyan.club均衡到本机不同的端口</p>
+<pre><code>http {
+	upstream ghlp {
+		server 127.0.0.1:8013 weight=3;
+		server 127.0.0.1:8014;
+	}
+	server {
+        listen       80;
+        server_name  ghlp.lidechenyan.club;
+        location / {
+            root   html;
+            index  index.html index.htm;
+			proxy_pass http://ghlp;
+        }
+	}
+}
+</code></pre>
+<h2 id="nginx反向代理">nginx反向代理</h2>
+<p>实现方式，编辑nginx.conf，配置upstream和location</p>
+<pre><code>server {
+    listen       443 ssl;#监听443端口，并启动ssl
+    server_name  ghlp.lidechenyan.club;#域名设置
+    ssl_certificate      cert.pem;
+    ssl_certificate_key  cert.key;
+    ssl_session_cache    shared:SSL:1m;
+    ssl_session_timeout  5m;
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+    location / {
+        root   html;
+        index  index.html index.htm;
+		proxy_pass http://ghlp;#反向代理，ghlp在upstream中设置
+    }
+}
+</code></pre>
+</div>
+</body>
+
+</html>
