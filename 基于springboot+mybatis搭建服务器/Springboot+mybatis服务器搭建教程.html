@@ -1,0 +1,256 @@
+<!DOCTYPE html><html><head><title>一、运行环境</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+<h1 id="一运行环境">一、运行环境</h1>
+
+<p>1、eclipse，sts(spring tool suite)</p>
+
+
+
+<h1 id="二搭建步骤">二、搭建步骤</h1>
+
+<h2 id="1新建spring-starter-project项目">1、新建Spring Starter Project项目</h2>
+
+<ol><li rel="1">New Project-&gt;Spring Boot-&gt;Spring Starter Project-&gt;点击Next</li>
+<li rel="2">TODO</li>
+<li rel="3">TODO</li>
+<li rel="4">TODO</li>
+</ol>
+
+
+
+<h2 id="2配置applicationproperties">2、配置application.properties</h2>
+
+<ol start="1"><li rel="1">配置数据库连接</li>
+</ol>
+
+<pre class="prettyprint hljs-dark"><code class="hljs stylus"><div class="hljs-line">spring<span class="hljs-selector-class">.datasource</span><span class="hljs-selector-class">.url</span>: jdbc:mysql:<span class="hljs-comment">//localhost:3306/数据库名称?useUnicode=true&amp;characterEncoding=utf-8</span>
+</div><div class="hljs-line">spring<span class="hljs-selector-class">.datasource</span><span class="hljs-selector-class">.username</span>: 账号
+</div><div class="hljs-line">spring<span class="hljs-selector-class">.datasource</span><span class="hljs-selector-class">.password</span>: 密码
+</div></code></pre>
+
+<ol start="2"><li rel="2">服务器启动端口设置</li>
+</ol>
+
+<pre class="prettyprint hljs-dark"><code class="hljs stylus"><div class="hljs-line">server<span class="hljs-selector-class">.port</span>: <span class="hljs-number">8010</span>
+</div></code></pre>
+
+<ol start="3"><li rel="3">项目路径设置</li>
+</ol>
+
+<pre class="prettyprint hljs-dark"><code class="hljs avrasm"><div class="hljs-line"><span class="hljs-symbol">adminPath:</span> /demo
+</div></code></pre>
+
+<ol start="4"><li rel="4"></li>
+<li rel="5"></li>
+<li rel="6"></li>
+</ol>
+
+
+
+<h2 id="3项目三层结构目录创建">3、项目三层结构目录创建</h2>
+
+<ol start="1"><li rel="1">dao/service/controller三层结构</li>
+</ol>
+
+
+
+<h2 id="4mybatisgenerator配置generatorconfigxml自动生成daoentitymapping">4、mybatisGenerator配置generatorConfig.xml自动生成Dao/Entity/Mapping</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"UTF-8"</span><span class="hljs-meta">?&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">&lt;!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;</span>
+</div><div class="hljs-line"><span class="hljs-tag">&lt;<span class="hljs-name">generatorConfiguration</span>&gt;</span>
+</div><div class="hljs-line">  <span class="hljs-tag">&lt;<span class="hljs-name">context</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"DB2Tables"</span>&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">jdbcConnection</span> <span class="hljs-attr">connectionURL</span>=<span class="hljs-string">"jdbc:mysql://127.0.0.1:3306/demo"</span> <span class="hljs-attr">driverClass</span>=<span class="hljs-string">"com.mysql.jdbc.Driver"</span> <span class="hljs-attr">password</span>=<span class="hljs-string">"dabby@2011"</span> <span class="hljs-attr">userId</span>=<span class="hljs-string">"root"</span> /&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">javaModelGenerator</span> <span class="hljs-attr">targetPackage</span>=<span class="hljs-string">"self.lide.demo.entity"</span> <span class="hljs-attr">targetProject</span>=<span class="hljs-string">"demo-springboot-mybatis"</span> /&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">sqlMapGenerator</span> <span class="hljs-attr">targetPackage</span>=<span class="hljs-string">"mapping"</span> <span class="hljs-attr">targetProject</span>=<span class="hljs-string">"demo-springboot-mybatis/src/main/resources"</span> /&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">javaClientGenerator</span> <span class="hljs-attr">targetPackage</span>=<span class="hljs-string">"self.lide.demo.dao"</span> <span class="hljs-attr">targetProject</span>=<span class="hljs-string">"demo-springboot-mybatis"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"XMLMAPPER"</span> /&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">tableName</span>=<span class="hljs-string">"demo_table"</span> <span class="hljs-attr">domainObjectName</span>=<span class="hljs-string">"DemoTable"</span> <span class="hljs-attr">enableCountByExample</span>=<span class="hljs-string">"false"</span> <span class="hljs-attr">enableUpdateByExample</span>=<span class="hljs-string">"false"</span> <span class="hljs-attr">enableDeleteByExample</span>=<span class="hljs-string">"false"</span> <span class="hljs-attr">enableSelectByExample</span>=<span class="hljs-string">"false"</span> <span class="hljs-attr">selectByExampleQueryId</span>=<span class="hljs-string">"false"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+</div><div class="hljs-line">  <span class="hljs-tag">&lt;/<span class="hljs-name">context</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-tag">&lt;/<span class="hljs-name">generatorConfiguration</span>&gt;</span>
+</div></code></pre>
+
+
+
+<h2 id="5springboot连接mybatis">5、Springboot连接mybatis</h2>
+
+<ol start="1"><li rel="1">在application.properties中配置mybatis信息</li>
+</ol>
+
+<pre class="prettyprint hljs-dark"><code class="hljs crmsh"><div class="hljs-line">mybatis.mapper-locations: classpath:mapping/*.<span class="hljs-keyword">xml</span>
+</div><div class="hljs-line"><span class="hljs-title">mytabis</span>.<span class="hljs-keyword">type</span>-aliases-package: self.lide.demo.entity
+</div></code></pre>
+
+<ol start="2"><li rel="2">在启动类中开启对Dao层的扫描</li>
+</ol>
+
+<pre class="prettyprint hljs-dark"><code class="hljs css"><div class="hljs-line">@<span class="hljs-keyword">MapperScan</span>("<span class="hljs-keyword">self</span>.<span class="hljs-keyword">lide</span>.<span class="hljs-keyword">demo</span>.<span class="hljs-keyword">dao</span>")
+</div></code></pre>
+
+<h2 id="6测试dao层是否可用">6、测试Dao层是否可用</h2>
+
+<ol><li rel="1">在测试目录src/test/java下新建子目录self.lide.demo.dao</li>
+<li rel="2">添加测试类DemoTableMapperTest.java</li>
+</ol>
+
+<pre class="prettyprint hljs-dark"><code class="hljs swift"><div class="hljs-line">package <span class="hljs-keyword">self</span>.lide.demo.dao;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.junit.Test;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.junit.runner.RunWith;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> junit.framework.Assert;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> self.lide.demo.DemoSpringbootMybatisApplication;
+</div><div class="hljs-line">
+</div><div class="hljs-line">@<span class="hljs-type">RunWith</span>(<span class="hljs-type">SpringRunner</span>.<span class="hljs-keyword">class</span>)
+</div><div class="hljs-line">@<span class="hljs-type">SpringBootTest</span>(classes = <span class="hljs-type">DemoSpringbootMybatisApplication</span>.<span class="hljs-keyword">class</span>, webEnvironment = <span class="hljs-type">SpringBootTest</span>.<span class="hljs-type">WebEnvironment</span>.<span class="hljs-type">RANDOM_PORT</span>)
+</div><div class="hljs-line">@<span class="hljs-type">EnableAutoConfiguration</span>
+</div><div class="hljs-line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoTableMapperTest</span> </span>{
+</div><div class="hljs-line">
+</div><div class="hljs-line">    @<span class="hljs-type">Autowired</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">private</span> <span class="hljs-type">DemoTableMapper</span> demotableMapper;
+</div><div class="hljs-line">
+</div><div class="hljs-line">    @<span class="hljs-type">Test</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">public</span> void testSelect() {
+</div><div class="hljs-line">        <span class="hljs-type">Long</span> id = 1L;
+</div><div class="hljs-line">        <span class="hljs-type">Assert</span>.assertNotNull(demotableMapper.selectByPrimaryKey(id));
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<p>JUnit Test 通过测试用例testSelect说明springboot成功连接mybatis，mybatisGenerator自动生成有效。</p>
+
+<h2 id="7开发service层">7、开发service层</h2>
+
+<ol start="1"><li rel="1">编写接口类DemoSerive.java与实现类DemoServiceImpl.java <br>
+a）DemoService类</li>
+</ol>
+
+<pre class="prettyprint hljs-dark"><code class="hljs java"><div class="hljs-line"><span class="hljs-keyword">package</span> self.lide.demo.service;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> self.lide.demo.entity.DemoTable;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DemoService</span> </span>{
+</div><div class="hljs-line">
+</div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">findOne</span><span class="hljs-params">(DemoTable demoTable)</span></span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<p>b）DemoServiceImpl类，在类上添加注解@Service，开启扫描</p>
+
+<pre class="prettyprint hljs-dark"><code class="hljs java"><div class="hljs-line"><span class="hljs-keyword">package</span> self.lide.demo.service.impl;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.stereotype.Service;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> self.lide.demo.dao.DemoTableMapper;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> self.lide.demo.entity.DemoTable;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> self.lide.demo.service.DemoService;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-meta">@Service</span>
+</div><div class="hljs-line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">DemoService</span> </span>{
+</div><div class="hljs-line">
+</div><div class="hljs-line">    <span class="hljs-meta">@Autowired</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">private</span> DemoTableMapper demotableMapper;
+</div><div class="hljs-line">
+</div><div class="hljs-line">    <span class="hljs-meta">@Override</span>
+</div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">findOne</span><span class="hljs-params">(DemoTable demoTable)</span> </span>{
+</div><div class="hljs-line">        <span class="hljs-comment">// TODO Auto-generated method stub</span>
+</div><div class="hljs-line">        Long id = demoTable.getId();
+</div><div class="hljs-line">        DemoTable db_demoTable = demotableMapper.selectByPrimaryKey(id);
+</div><div class="hljs-line">
+</div><div class="hljs-line">        <span class="hljs-keyword">return</span> db_demoTable==<span class="hljs-keyword">null</span> ? <span class="hljs-keyword">false</span>:<span class="hljs-keyword">true</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ol start="2"><li rel="2">在src/test/java目录下新建子目录self.lide.demo.service，并添加测试类DemoServiceTest.java</li>
+</ol>
+
+<pre class="prettyprint hljs-dark"><code class="hljs swift"><div class="hljs-line">package <span class="hljs-keyword">self</span>.lide.demo.service;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.junit.Assert;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.junit.Test;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.junit.runner.RunWith;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> self.lide.demo.entity.DemoTable;
+</div><div class="hljs-line">
+</div><div class="hljs-line">@<span class="hljs-type">RunWith</span>(<span class="hljs-type">SpringRunner</span>.<span class="hljs-keyword">class</span>)
+</div><div class="hljs-line">@<span class="hljs-type">SpringBootTest</span>
+</div><div class="hljs-line">@<span class="hljs-type">EnableAutoConfiguration</span>
+</div><div class="hljs-line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoServiceTest</span> </span>{
+</div><div class="hljs-line">
+</div><div class="hljs-line">    @<span class="hljs-type">Autowired</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">private</span> <span class="hljs-type">DemoService</span> demoService;
+</div><div class="hljs-line">
+</div><div class="hljs-line">    @<span class="hljs-type">Test</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">public</span> void testSelect() {
+</div><div class="hljs-line">        <span class="hljs-type">DemoTable</span> demoTable = new <span class="hljs-type">DemoTable</span>();
+</div><div class="hljs-line">        demoTable.setId(1L);
+</div><div class="hljs-line">
+</div><div class="hljs-line">        <span class="hljs-type">Assert</span>.assertFalse(demoService.findOne(demoTable));
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<p>测试通过，说明接口类与实现类编写无误。</p>
+
+
+
+<h2 id="8编写controller层服务器api测试">8、编写Controller层，服务器API测试</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs kotlin"><div class="hljs-line"><span class="hljs-keyword">package</span> self.lide.demo.controller;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.beans.factory.<span class="hljs-keyword">annotation</span>.Autowired;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.web.bind.<span class="hljs-keyword">annotation</span>.PathVariable;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.web.bind.<span class="hljs-keyword">annotation</span>.RequestMapping;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.web.bind.<span class="hljs-keyword">annotation</span>.ResponseBody;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> org.springframework.web.bind.<span class="hljs-keyword">annotation</span>.RestController;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> com.fasterxml.jackson.core.JsonProcessingException;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> self.lide.demo.entity.DemoTable;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> self.lide.demo.service.DemoService;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-meta">@RestController</span>
+</div><div class="hljs-line"><span class="hljs-meta">@RequestMapping(value=<span class="hljs-meta-string">"<span class="hljs-subst">${adminPath}</span>/demo"</span>)</span>
+</div><div class="hljs-line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoController</span> </span>{
+</div><div class="hljs-line">
+</div><div class="hljs-line">    <span class="hljs-meta">@Autowired</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">private</span> DemoService demoService;
+</div><div class="hljs-line">
+</div><div class="hljs-line">    <span class="hljs-meta">@ResponseBody</span>
+</div><div class="hljs-line">    <span class="hljs-meta">@RequestMapping(<span class="hljs-meta-string">"/find/{id}"</span>)</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">public</span> String FindOne(<span class="hljs-meta">@PathVariable(<span class="hljs-meta-string">"id"</span>)</span> <span class="hljs-built_in">Long</span> id) {
+</div><div class="hljs-line">        DemoTable demoTable = new DemoTable();
+</div><div class="hljs-line">        demoTable.setId(id);
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span> (demoService.findOne(demoTable)) {
+</div><div class="hljs-line">            <span class="hljs-keyword">try</span> {
+</div><div class="hljs-line">                <span class="hljs-keyword">return</span> (new ObjectMapper()).writeValueAsString(demoTable)+<span class="hljs-string">", is exist"</span>;
+</div><div class="hljs-line">            } <span class="hljs-keyword">catch</span> (JsonProcessingException e) {
+</div><div class="hljs-line">                <span class="hljs-comment">// TODO Auto-generated catch block</span>
+</div><div class="hljs-line">                e.printStackTrace();
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">
+</div><div class="hljs-line">        <span class="hljs-keyword">return</span> String.valueOf(<span class="hljs-literal">false</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<p>注意：使用到fastxml.jackson，将demoTable对象转化为json格式输出，在springboot中默认使用Jackson。</p>
+
+<p>浏览器访问链接：<a href="http://localhost:8010/demo/demo/find/1" target="_blank">http://localhost:8010/demo/demo/find/1</a> <br>
+输出以下两种结果，说明API编写成功</p>
+
+<pre class="prettyprint hljs-dark"><code class="hljs actionscript"><div class="hljs-line">{<span class="hljs-string">"id"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"status"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"message"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"createtime"</span>:<span class="hljs-literal">null</span>}, <span class="hljs-keyword">is</span> exist
+</div><div class="hljs-line"><span class="hljs-literal">false</span>
+</div></code></pre></div></body></html>

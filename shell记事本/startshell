@@ -1,0 +1,1 @@
+nohup java -jar -Dspring.config.location=/var/openface/cmsz-sldk/application.yml sldk-0.0.1-SNAPSHOT.jar  & 1>threadlog.txt 2>errorlog.txt

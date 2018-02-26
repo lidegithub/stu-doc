@@ -1,0 +1,21 @@
+#!/bin/bash
+
+start_keyword='sldk-0.0.1-SNAPSHOT.jar'
+echo "正在重启 ${start_keyword}"
+
+process_info=$(ps -ef|grep java|grep ${start_keyword}|grep -v grep)
+echo "正在kill掉进程，进程信息是 ${process_info}"
+
+# 简单 粗暴  直接杀掉
+kill_info=$(echo ${process_info} |awk '{print "kill -9 " $2}')
+if [ "kill -9 " != "${kill_info}" ]; then
+    echo ${kill_info}|sh
+    # 存在 可能没有这个进程 主要是上一次没启动成功 或者手工停止了
+    if [ $? -eq 0 ]; then
+        echo "${kill_info} 成功"
+    else
+        echo "${kill_info} 失败"
+    fi
+fi
+
+echo "关闭 ${start_keyword}成功"
