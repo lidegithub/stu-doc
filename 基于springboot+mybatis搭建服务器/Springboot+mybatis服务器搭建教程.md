@@ -1,3 +1,4 @@
+[TOC]
 # 一、运行环境
 1、eclipse，sts(spring tool suite)
 2、eclipse中已经安装mybatis generator插件
