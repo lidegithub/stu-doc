@@ -1,19 +1,22 @@
 # 一、运行环境
 1、eclipse，sts(spring tool suite)
+2、eclipse中已经安装mybatis generator插件
 
 # 二、搭建步骤
 ## 1、新建Spring Starter Project项目
 
  1. New Project->Spring Boot->Spring Starter Project->点击Next
- 2. TODO
- 3. TODO
- 4. TODO
+![https://gitee.com/lidechenyan/images/raw/master/springboot+mybatis.png](https://gitee.com/lidechenyan/images/raw/master/springboot+mybatis.png)
+ 2. 设置包路径，项目坐标，项目名
+![https://gitee.com/lidechenyan/images/raw/master/springboot+mybatis1.png](https://gitee.com/lidechenyan/images/raw/master/springboot+mybatis1.png)
+ 3. 添加依赖
+![https://gitee.com/lidechenyan/images/raw/master/springboot+mybatis2.png](https://gitee.com/lidechenyan/images/raw/master/springboot+mybatis2.png)
 
 ## 2、配置application.properties
 
  1. 配置数据库连接
 
-    spring.datasource.url: jdbc:mysql://localhost:3306/数据库名称?useUnicode=true&characterEncoding=utf-8
+    spring.datasource.url: jdbc:mysql://localhost:3306/数据库名称?useUnicode=true&characterEncoding=utf-8&useSSL=false
     spring.datasource.username: 账号
     spring.datasource.password: 密码
 
@@ -25,11 +28,25 @@
 
     adminPath: /demo
 
- 4. 
- 5. 
- 6. 
+ 4. application.properties配置信息如下。
+
+```
+spring.datasource.url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false
+spring.datasource.username: root
+spring.datasource.password: dabby@2011
+
+server.port: 8010
+
+adminPath: /demo
+
+mybatis.mapper-locations: classpath:mapping/*.xml
+mytabis.type-aliases-package: self.lide.demo.entity
+```
 ## 3、项目三层结构目录创建
 1. dao/service/controller三层结构
+2. 新建实体类存放目录entity，映射文件存放目录mapping
+3. 最终目录结构如下。
+![https://gitee.com/lidechenyan/images/raw/master/springboot+mybatis3.png](https://gitee.com/lidechenyan/images/raw/master/springboot+mybatis3.png)
 ## 4、mybatisGenerator配置generatorConfig.xml自动生成Dao/Entity/Mapping
 
     <?xml version="1.0" encoding="UTF-8"?>
@@ -210,6 +227,6 @@ public class DemoController {
 false
 ```
 
-
+项目源码下载：https://github.com/lidegithub/stu-doc/blob/master/%E5%9F%BA%E4%BA%8Espringboot%2Bmybatis%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/demo-springboot-mybatis.zip
 
 
