@@ -1,0 +1,26 @@
+# Springboot+dubbo+zookeeper搭建分布式系统教程
+
+-------------------
+
+## 一、运行环境
+
+1. eclipse，sts(spring tool suite)
+2. dubbo+zookeeper，安装zookeeper
+3. nginx，做反向代理，前后端分离
+## 二、搭建步骤
+### 1、基于dubbo实现rpc的分布式系统架构分析
+将要搭建的分布式系统的交互流程，如下。
+![交互流程](https://gitee.com/lidechenyan/images/raw/master/Springboot+dubbo+zookeeper.png)
+说明：
+1） 前端请求经过nginx反向代理到后台web控制层Controller；
+2）后台web控制层Controller作为dubbo服务的消费者向zookeeper服务注册中心订阅rpc服务；
+3）rpc服务提供者A、B、C等等，是具体的服务实现模块，作为服务提供者，向zookeeper服务注册中心发布服务。
+
+将要搭建的分布式系统的技术架构，如下。
+![技术架构](https://gitee.com/lidechenyan/images/raw/master/Springboot+dubbo+zookeeper1.png)
+说明：
+白色框中表示本文中尚未实现的模块，蓝色框中表示将在本文中实现的模块。
+### 2、新建项目清单与交互逻辑
+#### 2.1、新建项目清单
+
+
