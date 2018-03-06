@@ -1,0 +1,1870 @@
+<!DOCTYPE html><html><head><title>标准C程序设计技能百炼</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="标准c程序设计技能百炼">标准C程序设计技能百炼</h1>
+
+<h2 id="li12完全数">li12完全数</h2>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-comment">//一个数如果恰好等于它的因子（自身除外）之和，则称该数为完全数。如6=1+2+3，则6为完全数。</span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i, sum, a;
+</div><div class="hljs-line">    a = <span class="hljs-number">2</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">do</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        i = <span class="hljs-number">1</span>;
+</div><div class="hljs-line">        sum = <span class="hljs-number">0</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">do</span>
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(a%i==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">                sum += i;
+</div><div class="hljs-line">            i++;
+</div><div class="hljs-line">        }<span class="hljs-keyword">while</span>(i &lt;= a/<span class="hljs-number">2</span>);
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(sum == a)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%4d"</span>,a);
+</div><div class="hljs-line">        a++;
+</div><div class="hljs-line">    }<span class="hljs-keyword">while</span>(a&lt;<span class="hljs-number">500</span>);
+</div><div class="hljs-line">    <span class="hljs-built_in">putchar</span>(<span class="hljs-string">'\n'</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li13寻找负数">li13寻找负数</h2>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="hljs mipsasm"><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int i, <span class="hljs-keyword">j, </span>num[<span class="hljs-number">4</span>][<span class="hljs-number">6</span>]<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    printf(<span class="hljs-string">"Enter 24 integers:\n"</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i &lt; 4; i++)</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j </span>&lt; <span class="hljs-number">6</span><span class="hljs-comment">; j++)</span>
+</div><div class="hljs-line">            <span class="hljs-keyword">scanf("%d",&amp;num[i][j]);
+</span></div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i &lt; 4; i++)</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j </span>&lt; <span class="hljs-number">6</span><span class="hljs-comment">; j++)</span>
+</div><div class="hljs-line">            if(num[i][<span class="hljs-keyword">j] </span>&lt; <span class="hljs-number">0</span>) goto found<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    printf(<span class="hljs-string">"Not found !\n"</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    goto done<span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-symbol">    found:</span>
+</div><div class="hljs-line">          printf(<span class="hljs-string">"minus number num[%d][%d]: %d\n"</span>, i, <span class="hljs-keyword">j, </span>num[i][<span class="hljs-keyword">j]);
+</span></div><div class="hljs-line"><span class="hljs-symbol">    done:</span>
+</div><div class="hljs-line">    return <span class="hljs-number">0</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li14天数判断">li14天数判断</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs axapta"><div class="hljs-line"><span class="hljs-meta">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">int</span> main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> day, month, year, <span class="hljs-keyword">sum</span>, leap;
+</div><div class="hljs-line">    printf(<span class="hljs-string">"Please input year, month, day\n"</span>);
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%d,%d,%d"</span>, &amp;year, &amp;month, &amp;day);
+</div><div class="hljs-line">
+</div><div class="hljs-line">    <span class="hljs-keyword">switch</span>(month)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">0</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">31</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">59</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">90</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">120</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">151</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">181</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">8</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">212</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">9</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">243</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">10</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">273</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">11</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">304</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">12</span>: <span class="hljs-keyword">sum</span> = <span class="hljs-number">334</span>; <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">default</span>: printf(<span class="hljs-string">"data error !"</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">sum</span> += day;
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(year%<span class="hljs-number">400</span>==<span class="hljs-number">0</span>||(year%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>&amp;&amp;year%<span class="hljs-number">100</span>!=<span class="hljs-number">0</span>))
+</div><div class="hljs-line">        leap = <span class="hljs-number">1</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span> 
+</div><div class="hljs-line">        leap = <span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(leap==<span class="hljs-number">1</span>&amp;&amp;month&gt;<span class="hljs-number">2</span>)
+</div><div class="hljs-line">        <span class="hljs-keyword">sum</span> ++;
+</div><div class="hljs-line">    printf(<span class="hljs-string">"It is the %dth day.\n"</span>, <span class="hljs-keyword">sum</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li15猜数字">li15猜数字</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctype.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;time.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> count, number,guess;
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> yes = <span class="hljs-string">'Y'</span>;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Now let us play the game.\nGuess the number:\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(<span class="hljs-built_in">toupper</span>(yes)==<span class="hljs-string">'Y'</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        count = <span class="hljs-number">0</span>;
+</div><div class="hljs-line">        srand(time(<span class="hljs-number">0</span>));
+</div><div class="hljs-line">        number = rand()/<span class="hljs-number">100</span>+<span class="hljs-number">1</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">do</span>
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-keyword">do</span>
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input an interger number(1-100):\n"</span>);
+</div><div class="hljs-line">                <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;guess);
+</div><div class="hljs-line">            }<span class="hljs-keyword">while</span>(!(guess&gt;=<span class="hljs-number">1</span>&amp;&amp;guess&lt;=<span class="hljs-number">100</span>));
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(guess&lt;number)
+</div><div class="hljs-line">                <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Your answer is LOW , try again.\n"</span>);
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(guess&gt;number)
+</div><div class="hljs-line">                <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Yuor answer is HIGH , try again.\n"</span>);
+</div><div class="hljs-line">             count++;
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(count == <span class="hljs-number">15</span>)
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                <span class="hljs-built_in">printf</span>(<span class="hljs-string">"This is the %d times ! Think it hard next!\n"</span>, count);
+</div><div class="hljs-line">                <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">        }<span class="hljs-keyword">while</span>(!(guess == number));
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(count &lt;= <span class="hljs-number">7</span>)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"You have got it in %d times.\n"</span>, count);
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Congretulations!\n"</span>);
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"You got it in %d times.\n"</span>,count);
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"I bet you can do it better!\n"</span>);
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"NEXT?(Y/N):\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">" %c"</span>, &amp;yes);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li16按位排序">li16按位排序</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> x, y;
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i, a[<span class="hljs-number">5</span>];
+</div><div class="hljs-line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%ld"</span>, &amp;x);
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>((x&lt;<span class="hljs-number">10000</span>)||(x&gt;<span class="hljs-number">99999</span>))
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"This data is error !\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; ++i)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        a[i] = x%<span class="hljs-number">10</span>;
+</div><div class="hljs-line">        x = x/<span class="hljs-number">10</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    fun(a);
+</div><div class="hljs-line">    y =<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i)
+</div><div class="hljs-line">        y=y*<span class="hljs-number">10</span>+a[i];
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%ld"</span>, y);
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">fun(<span class="hljs-keyword">int</span> a[])
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i, j, k;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i)
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j = i; j &lt; <span class="hljs-number">5</span>; ++j)
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(a[j] &lt; a[i])
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                k = a[i];
+</div><div class="hljs-line">                a[i] = a[j];
+</div><div class="hljs-line">                a[j] = k;
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li18数组逆转">li18数组逆转</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs lsl"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">#define N <span class="hljs-number">20</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int a[N] = {<span class="hljs-number">9</span>,<span class="hljs-number">6</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">23</span>,<span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">26</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">8</span>,<span class="hljs-number">7</span>,<span class="hljs-number">67</span>,<span class="hljs-number">68</span>,<span class="hljs-number">34</span>,<span class="hljs-number">2</span>,<span class="hljs-number">88</span>,<span class="hljs-number">34</span>};
+</div><div class="hljs-line">    int i, temp;
+</div><div class="hljs-line">    printf(<span class="hljs-string">"original array: <span class="hljs-subst">\n</span>"</span>);
+</div><div class="hljs-line">    for(i =<span class="hljs-number">0</span>; i &lt; N; i++)
+</div><div class="hljs-line">        printf(<span class="hljs-string">"%4d"</span>, a[i]);
+</div><div class="hljs-line">    for(i = <span class="hljs-number">0</span>; i &lt; N/<span class="hljs-number">2</span>; i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        temp = a[i];
+</div><div class="hljs-line">        a[i] = a[N-i<span class="hljs-number">-1</span>];
+</div><div class="hljs-line">        a[N-i<span class="hljs-number">-1</span>] = temp;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    printf(<span class="hljs-string">"sorted array: <span class="hljs-subst">\n</span>"</span>);
+</div><div class="hljs-line">    for(i = <span class="hljs-number">0</span>; i &lt; N; i ++)
+</div><div class="hljs-line">        printf(<span class="hljs-string">"%4d"</span>, a[i]);
+</div><div class="hljs-line">    printf(<span class="hljs-string">"<span class="hljs-subst">\n</span>"</span>);
+</div><div class="hljs-line">    return <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li19折半查找">li19折半查找</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs perl"><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">void selectsort (<span class="hljs-keyword">int</span> a[], <span class="hljs-keyword">int</span> n)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i, j, k, num;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; n-<span class="hljs-number">1</span>; i ++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        k = i;
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j = i+<span class="hljs-number">1</span>; j &lt; n; j ++)
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(a[j]&lt;a[k])
+</div><div class="hljs-line">                k = j;
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(k!=i)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            num = a[k];
+</div><div class="hljs-line">            a[k] = a[i];
+</div><div class="hljs-line">            a[i] = num;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"The sorted numbers are:"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; n; i ++)
+</div><div class="hljs-line">        <span class="hljs-keyword">printf</span>(<span class="hljs-string">"%7d"</span>, a[i]);
+</div><div class="hljs-line">    putchar(<span class="hljs-string">'\n'</span>);
+</div><div class="hljs-line">}
+</div><div class="hljs-line">void halfind(<span class="hljs-keyword">int</span> a[], <span class="hljs-keyword">int</span> n)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span>  k, find = <span class="hljs-number">0</span>, first = <span class="hljs-number">0</span>, <span class="hljs-keyword">last</span> = (n-<span class="hljs-number">1</span>), half;
+</div><div class="hljs-line">    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"Input the number to look for: "</span>);
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%d"</span>, &amp;k);
+</div><div class="hljs-line">    <span class="hljs-keyword">do</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        half = (first + <span class="hljs-keyword">last</span>)/<span class="hljs-number">2</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(k == a[half])
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-keyword">printf</span>(<span class="hljs-string">"Find %d, it is a[%d].\n"</span>, k, half);
+</div><div class="hljs-line">            find = <span class="hljs-number">1</span>;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(k &gt;a[half])
+</div><div class="hljs-line">                first = half + <span class="hljs-number">1</span>;
+</div><div class="hljs-line">            <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">                <span class="hljs-keyword">last</span> = half - <span class="hljs-number">1</span>;
+</div><div class="hljs-line">    }<span class="hljs-keyword">while</span>((first&lt;=<span class="hljs-keyword">last</span>)&amp;&amp;(find==<span class="hljs-number">0</span>));
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(find==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">        <span class="hljs-keyword">printf</span>(<span class="hljs-string">"%d not been found!\n"</span>, k);
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><span class="hljs-keyword">int</span> main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i,n, a[<span class="hljs-number">100</span>];
+</div><div class="hljs-line">    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"Input the total number[1~100]:"</span>);
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%d"</span>, &amp;n);
+</div><div class="hljs-line">    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"Input %d numbers: \n"</span>, n);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; n; i ++)
+</div><div class="hljs-line">        scanf(<span class="hljs-string">"%d"</span>, &amp;a[i]);
+</div><div class="hljs-line">    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"The original orders are: "</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; n; i ++)
+</div><div class="hljs-line">        <span class="hljs-keyword">printf</span>(<span class="hljs-string">"%7d"</span>, a[i]);
+</div><div class="hljs-line">    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    selectsort(a, n);
+</div><div class="hljs-line">    halfind(a, n);
+</div><div class="hljs-line">    <span class="hljs-regexp">//printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li22魔方阵">li22魔方阵</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 9</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i, j, k, a[N][N];
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>; j&lt;N; j++)
+</div><div class="hljs-line">            a[i][j] = <span class="hljs-number">0</span>;
+</div><div class="hljs-line">    j = N/<span class="hljs-number">2</span>;
+</div><div class="hljs-line">    a[<span class="hljs-number">0</span>][j] = <span class="hljs-number">1</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(k=<span class="hljs-number">2</span>; k&lt;=N*N; k++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        i--;
+</div><div class="hljs-line">        j++;
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(i&lt;<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            i=N<span class="hljs-number">-1</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span> 
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(j&gt;N<span class="hljs-number">-1</span>)
+</div><div class="hljs-line">                j=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(a[i][j]==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            a[i][j]=k;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            i=(i+<span class="hljs-number">2</span>)%N;
+</div><div class="hljs-line">            j=(j<span class="hljs-number">-1</span>+N)%N;
+</div><div class="hljs-line">            a[i][j]=k;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\t"</span>);
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>; j&lt;N; j++)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%4d"</span>, a[i][j]);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li25成绩统计">li25成绩统计</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 8</span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> x, num[N+<span class="hljs-number">1</span>];
+</div><div class="hljs-line">    <span class="hljs-keyword">float</span> st[N+<span class="hljs-number">1</span>], ave, sum=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(x=<span class="hljs-number">1</span>; x&lt;=N; x++)
+</div><div class="hljs-line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d%f"</span>,&amp;num[x], &amp;st[x]);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(x=<span class="hljs-number">1</span>; x&lt;=N; x++)
+</div><div class="hljs-line">        sum+=st[x];
+</div><div class="hljs-line">    ave=sum/N;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"average is: %f\n"</span>, ave);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(x=<span class="hljs-number">1</span>; x&lt;=N; x++)
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(st[x]&gt;=ave)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\t%f\n"</span>, num[x], st[x]);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li26二维数组每行最大值提取">li26二维数组每行最大值提取</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs lsl"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int x, y, p, t;
+</div><div class="hljs-line">    int a[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>]={{<span class="hljs-number">9</span>,<span class="hljs-number">8</span>,<span class="hljs-number">7</span>,<span class="hljs-number">11</span>},{<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>},{<span class="hljs-number">25</span>,<span class="hljs-number">3</span>,<span class="hljs-number">19</span>,<span class="hljs-number">10</span>}};
+</div><div class="hljs-line">    <span class="hljs-comment">//ÌáÈ¡Ã¿ÐÐ×î´óÖµ</span>
+</div><div class="hljs-line">    for(x=<span class="hljs-number">0</span>; x&lt;=<span class="hljs-number">2</span>; x++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        p=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">        for(y=<span class="hljs-number">1</span>; y&lt;=<span class="hljs-number">3</span>; y++)
+</div><div class="hljs-line">            if(a[x][y]&gt;a[x][p])
+</div><div class="hljs-line">                p=y;
+</div><div class="hljs-line">        t=a[x][<span class="hljs-number">0</span>];
+</div><div class="hljs-line">        a[x][<span class="hljs-number">0</span>]=a[x][p];
+</div><div class="hljs-line">        a[x][p]=t;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    for(x=<span class="hljs-number">0</span>; x&lt;=<span class="hljs-number">2</span>; x++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        for(y=<span class="hljs-number">0</span>; y&lt;=<span class="hljs-number">3</span>; y++)
+</div><div class="hljs-line">            printf(<span class="hljs-string">"%d<span class="hljs-subst">\t</span>"</span>, a[x][y]);
+</div><div class="hljs-line">        printf(<span class="hljs-string">"<span class="hljs-subst">\n</span>"</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    return <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li27字符排序">li27字符排序</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">hanio(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">char</span> x, <span class="hljs-keyword">char</span> y, <span class="hljs-keyword">char</span> z)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span>)
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c-&gt;%c\n"</span>, x, z);
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        hanio(n<span class="hljs-number">-1</span>, x, z, y);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c-&gt;%c\n"</span>, x, z);
+</div><div class="hljs-line">        hanio(n<span class="hljs-number">-1</span>, y, x, z);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> m;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"input the number of diskes:"</span>);
+</div><div class="hljs-line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;m);
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"The step to moving %3d diskes:"</span>, m);
+</div><div class="hljs-line">    hanio(m, <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li29学生成绩检查">li29学生成绩检查</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs lsl"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    void search(<span class="hljs-type">float</span>(*p)[<span class="hljs-number">4</span>], int m);
+</div><div class="hljs-line">    static <span class="hljs-type">float</span> score[<span class="hljs-number">5</span>][<span class="hljs-number">4</span>]={{<span class="hljs-number">65</span>,<span class="hljs-number">80</span>,<span class="hljs-number">78</span>,<span class="hljs-number">90</span>},{<span class="hljs-number">98</span>,<span class="hljs-number">89</span>,<span class="hljs-number">100</span>,<span class="hljs-number">83</span>},{<span class="hljs-number">92</span>,<span class="hljs-number">56</span>,<span class="hljs-number">78</span>,<span class="hljs-number">70</span>},{<span class="hljs-number">78</span>,<span class="hljs-number">63</span>,<span class="hljs-number">80</span>,<span class="hljs-number">70</span>},{<span class="hljs-number">64</span>,<span class="hljs-number">55</span>,<span class="hljs-number">70</span>,<span class="hljs-number">81</span>}};
+</div><div class="hljs-line">    search(score, <span class="hljs-number">5</span>);
+</div><div class="hljs-line">    return <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">void search( <span class="hljs-type">float</span> (*p)[<span class="hljs-number">4</span>], int m)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int i, j, flag;
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span>; i&lt;m; i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        flag = <span class="hljs-number">0</span>; 
+</div><div class="hljs-line">        for(j=<span class="hljs-number">0</span>; j&lt;<span class="hljs-number">4</span>; j++)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            if( *( *(p+i)+j )&lt;<span class="hljs-number">60</span> )
+</div><div class="hljs-line">                flag=<span class="hljs-number">1</span>;
+</div><div class="hljs-line">            if(flag==<span class="hljs-number">1</span>)
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                printf(<span class="hljs-string">"Np.%d is flunked, score are:<span class="hljs-subst">\n</span>"</span>, i+<span class="hljs-number">1</span>);
+</div><div class="hljs-line">                for(j=<span class="hljs-number">0</span>; j&lt;<span class="hljs-number">4</span>; j++)
+</div><div class="hljs-line">                    printf(<span class="hljs-string">"%5.1f"</span>, *(*(p+i)+j) );
+</div><div class="hljs-line">                printf(<span class="hljs-string">"<span class="hljs-subst">\n</span>"</span>);
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li30奇偶函数调用">li30奇偶函数调用</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cs"><div class="hljs-line"><span class="hljs-meta">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>)
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">peven</span>(<span class="hljs-params"></span>), <span class="hljs-title">podd</span>(<span class="hljs-params"></span>), <span class="hljs-title">dcall</span>(<span class="hljs-params"></span>)</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">float</span> sum;
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> n;
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        scanf(<span class="hljs-string">"%d"</span>, &amp;n);
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(n&gt;<span class="hljs-number">1</span>) <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(n%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        printf(<span class="hljs-string">"Even="</span>);<span class="hljs-comment">//1/2+1/4+1/6+...</span>
+</div><div class="hljs-line">        sum=dcall(peven, n);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        printf(<span class="hljs-string">"Odd="</span>);
+</div><div class="hljs-line">        sum=dcall(podd, n);<span class="hljs-comment">//1/1+1/3+1/5+...</span>
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    printf(<span class="hljs-string">"%f\n"</span>, sum);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">peven</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> n</span>)
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">float</span> s;
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i;
+</div><div class="hljs-line">    s=<span class="hljs-number">1</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">2</span>; i&lt;=n; i+=<span class="hljs-number">2</span>)
+</div><div class="hljs-line">        s+=<span class="hljs-number">1</span>/(<span class="hljs-keyword">float</span>)i;
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> (s);
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">podd</span>(<span class="hljs-params">n</span>)
+</span></div><div class="hljs-line"><span class="hljs-keyword">int</span> n;
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">float</span> s;
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i;
+</div><div class="hljs-line">    s=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>; i&lt;=n; i+=<span class="hljs-number">2</span>)
+</div><div class="hljs-line">        s+=<span class="hljs-number">1</span>/(<span class="hljs-keyword">float</span>)i;
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> (s);
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">dcall</span>(<span class="hljs-params">fp, n</span>)
+</span></div><div class="hljs-line"><span class="hljs-title">float</span> (<span class="hljs-params">*fp</span>)(<span class="hljs-params"></span>);
+</div><div class="hljs-line"><span class="hljs-keyword">int</span> n;
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">float</span> s;
+</div><div class="hljs-line">    s=(*fp)(n);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> (s);
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li31万年历">li31万年历</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs processing"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-built_in">int</span> IsLeapYear(<span class="hljs-built_in">int</span>);
+</div><div class="hljs-line"><span class="hljs-built_in">int</span> main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-built_in">int</span> i, <span class="hljs-built_in">day</span>, <span class="hljs-built_in">year</span>, temp,temp_i;
+</div><div class="hljs-line">    <span class="hljs-keyword">long</span> <span class="hljs-built_in">int</span> Year_days=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-built_in">int</span> Year_Start=<span class="hljs-number">1</span>;
+</div><div class="hljs-line">    <span class="hljs-built_in">int</span> Per_Year_Days;
+</div><div class="hljs-line">    <span class="hljs-built_in">int</span> month_day[]={<span class="hljs-number">31</span>,<span class="hljs-number">28</span>,<span class="hljs-number">31</span>,<span class="hljs-number">30</span>,<span class="hljs-number">31</span>,<span class="hljs-number">30</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">30</span>,<span class="hljs-number">31</span>,<span class="hljs-number">30</span>,<span class="hljs-number">31</span>,<span class="hljs-number">29</span>};
+</div><div class="hljs-line">    printf(<span class="hljs-string">"Please enter the year: "</span>);
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%d"</span>, &amp;<span class="hljs-built_in">year</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(Year_Start &lt; <span class="hljs-built_in">year</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(IsLeapYear(Year_Start))
+</div><div class="hljs-line">            Per_Year_Days=<span class="hljs-number">366</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">            Per_Year_Days=<span class="hljs-number">365</span>;
+</div><div class="hljs-line">        <span class="hljs-comment">//输入年份的起始天数，用于确定第一天是星期几</span>
+</div><div class="hljs-line">        Year_days=Year_days+Per_Year_Days;
+</div><div class="hljs-line">        Year_Start++;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(temp=<span class="hljs-number">1</span>; temp&lt;=<span class="hljs-number">12</span>; temp++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">switch</span>( temp )
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: printf(<span class="hljs-string">"    February(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: printf(<span class="hljs-string">"    February(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: printf(<span class="hljs-string">"    March(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: printf(<span class="hljs-string">"    April(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>: printf(<span class="hljs-string">"    May(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>: printf(<span class="hljs-string">"    June(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>: printf(<span class="hljs-string">"    July(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">8</span>: printf(<span class="hljs-string">"    August(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">9</span>: printf(<span class="hljs-string">"    September(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">10</span>: printf(<span class="hljs-string">"    October(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">11</span>: printf(<span class="hljs-string">"    November(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span> <span class="hljs-number">12</span>: printf(<span class="hljs-string">"    December(%d)\n"</span>, <span class="hljs-built_in">year</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        i=Year_days%<span class="hljs-number">7</span>;
+</div><div class="hljs-line">        printf(<span class="hljs-string">"Mon Tue Wed Thu Fri Sat Sun\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(i!=<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            <span class="hljs-keyword">for</span>(temp_i=<span class="hljs-number">0</span>; temp_i&lt;i; temp_i++)
+</div><div class="hljs-line">                printf(<span class="hljs-string">"    "</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">day</span>=<span class="hljs-number">1</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(IsLeapYear(<span class="hljs-built_in">year</span>)&amp;&amp;temp==<span class="hljs-number">2</span>)
+</div><div class="hljs-line">            <span class="hljs-keyword">while</span>(<span class="hljs-built_in">day</span>&lt;=month_day[<span class="hljs-number">12</span>])
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                <span class="hljs-keyword">if</span>( <span class="hljs-built_in">day</span> &gt; <span class="hljs-number">1</span> )
+</div><div class="hljs-line">                    <span class="hljs-keyword">if</span>(Year_days%<span class="hljs-number">7</span>==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">                        printf(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">                <span class="hljs-keyword">if</span>(<span class="hljs-built_in">day</span> &gt;= <span class="hljs-number">10</span>)
+</div><div class="hljs-line">                    printf(<span class="hljs-string">"%d  "</span>, <span class="hljs-built_in">day</span>);
+</div><div class="hljs-line">                <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">                    printf(<span class="hljs-string">"%d   "</span>, <span class="hljs-built_in">day</span>);
+</div><div class="hljs-line">                Year_days++;
+</div><div class="hljs-line">                <span class="hljs-built_in">day</span>++;
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">            <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">                <span class="hljs-keyword">while</span>(<span class="hljs-built_in">day</span>&lt;=month_day[temp<span class="hljs-number">-1</span>])
+</div><div class="hljs-line">                {
+</div><div class="hljs-line">                    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">day</span>&gt;<span class="hljs-number">1</span>)
+</div><div class="hljs-line">                        <span class="hljs-keyword">if</span>(Year_days%<span class="hljs-number">7</span>==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">                            printf(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">                    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">day</span>&gt;=<span class="hljs-number">10</span>)
+</div><div class="hljs-line">                        printf(<span class="hljs-string">"%d  "</span>, <span class="hljs-built_in">day</span>);
+</div><div class="hljs-line">                    <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">                        printf(<span class="hljs-string">"%d   "</span>, <span class="hljs-built_in">day</span>);
+</div><div class="hljs-line">                    Year_days++;
+</div><div class="hljs-line">                    <span class="hljs-built_in">day</span>++;
+</div><div class="hljs-line">                }
+</div><div class="hljs-line">                printf(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">                <span class="hljs-keyword">if</span>(getch()==<span class="hljs-string">'q'</span>)
+</div><div class="hljs-line">                    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-built_in">int</span> IsLeapYear(<span class="hljs-built_in">int</span> <span class="hljs-built_in">year</span>)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(((<span class="hljs-built_in">year</span>%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>)&amp;&amp;(<span class="hljs-built_in">year</span>%<span class="hljs-number">100</span>!=<span class="hljs-number">0</span>))||(<span class="hljs-built_in">year</span>%<span class="hljs-number">400</span>==<span class="hljs-number">0</span>))
+</div><div class="hljs-line">        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span> 
+</div><div class="hljs-line">        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li32汉诺塔">li32汉诺塔</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">hanio(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">char</span> x, <span class="hljs-keyword">char</span> y, <span class="hljs-keyword">char</span> z)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span>)
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c-&gt;%c\n"</span>, x, z);
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        hanio(n<span class="hljs-number">-1</span>, x, z, y);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c-&gt;%c\n"</span>, x, z);
+</div><div class="hljs-line">        hanio(n<span class="hljs-number">-1</span>, y, x, z);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> m;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"input the number of diskes:"</span>);
+</div><div class="hljs-line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;m);
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"The step to moving %3d diskes:"</span>, m);
+</div><div class="hljs-line">    hanio(m, <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li33求最小值">li33求最小值</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> a, b, c, m;
+</div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">min3</span><span class="hljs-params">()</span></span>;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"input three intergers:"</span>);
+</div><div class="hljs-line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d %d %d"</span>, &amp;a, &amp;b, &amp;c);
+</div><div class="hljs-line">    m=min3(a,b,c);
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"min is %d\n"</span>, m);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">min2</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> z;
+</div><div class="hljs-line">    z=x&lt;y?x:y;
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> z;
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">min3</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> z)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> w;
+</div><div class="hljs-line">    w=min2(x, y);
+</div><div class="hljs-line">    w=min2(w, z);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> w;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li34求三角函数">li34求三角函数</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;math.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> ch[<span class="hljs-number">20</span>];
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i, j=<span class="hljs-number">1</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">double</span>(*f) ();
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"input sin or cos or tan: "</span>);
+</div><div class="hljs-line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>, ch);
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">strcmp</span>(ch, <span class="hljs-string">"sin"</span>))
+</div><div class="hljs-line">        f=<span class="hljs-built_in">sin</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span> 
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">strcmp</span>(ch, <span class="hljs-string">"cos"</span>))
+</div><div class="hljs-line">            f=<span class="hljs-built_in">cos</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">strcmp</span>(ch, <span class="hljs-string">"tan"</span>))
+</div><div class="hljs-line">                f=<span class="hljs-built_in">tan</span>;
+</div><div class="hljs-line">            <span class="hljs-keyword">else</span> j=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(j==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"input error!"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n%3d%8.3f"</span>, (i+<span class="hljs-number">1</span>)*<span class="hljs-number">10</span>, (*f)(<span class="hljs-number">3.1415</span>*(i+<span class="hljs-number">1</span>)/<span class="hljs-number">18</span>));
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li35求阶乘倒数之和">li35求阶乘倒数之和</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> n;
+</div><div class="hljs-line">    <span class="hljs-keyword">float</span> e, p;
+</div><div class="hljs-line">    e=p=<span class="hljs-number">1.0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(n=<span class="hljs-number">1</span>; n&lt;=<span class="hljs-number">10</span>; n++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        p*=n;
+</div><div class="hljs-line">        e+=<span class="hljs-number">1.0</span>/p;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"e=%10.7f\n"</span>, e);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li36求一元二次方程的根">li36求一元二次方程的根</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs perl"><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment">#include &lt;math.h&gt;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">int</span> main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    float a, b, c, p, x1, x2, t1, t2;
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%f,%f,%f"</span>, &amp;a, &amp;b, &amp;c);
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(a==<span class="hljs-number">0</span>&amp;&amp;b==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">        <span class="hljs-keyword">printf</span>(<span class="hljs-string">"unsolvable.\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(a==<span class="hljs-number">0</span>&amp;&amp;b!=<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            <span class="hljs-keyword">printf</span>(<span class="hljs-string">"the single root is %f\n"</span>, -c/b);
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(a!=<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                p=b*b-<span class="hljs-number">4</span>*a*c;
+</div><div class="hljs-line">                t1=-b/(<span class="hljs-number">2</span>*a);
+</div><div class="hljs-line">                t2=<span class="hljs-keyword">sqrt</span>(fabs(p))/(<span class="hljs-number">2</span>*a);
+</div><div class="hljs-line">                <span class="hljs-keyword">if</span>(p&lt;<span class="hljs-number">0</span>)
+</div><div class="hljs-line">                {
+</div><div class="hljs-line">                    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"complex root:\n"</span>);
+</div><div class="hljs-line">                    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"%8.4f+%8.4fi\n"</span>, t1, t2);
+</div><div class="hljs-line">                    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"%8.4f-%8.4fi\n"</span>, t1, t2);
+</div><div class="hljs-line">                }
+</div><div class="hljs-line">                <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">                {
+</div><div class="hljs-line">                    x1=t1+t2;
+</div><div class="hljs-line">                    x2=t1-t2;
+</div><div class="hljs-line">                    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"realroot:\n"</span>);
+</div><div class="hljs-line">                    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"%8.4f and %8.4f\n"</span>, x1, x2);
+</div><div class="hljs-line">                }
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li37加法练习">li37加法练习</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> a, b, c, x=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(x&lt;<span class="hljs-number">5</span>)<span class="hljs-comment">//和在100以内的加法，连对5次通过</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        a=rand( )%<span class="hljs-number">100</span>;
+</div><div class="hljs-line">        b=rand( )%<span class="hljs-number">100</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>((a+b)&gt;<span class="hljs-number">100</span>)
+</div><div class="hljs-line">            <span class="hljs-keyword">continue</span>;
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n%d+%d=?  "</span>, a, b);
+</div><div class="hljs-line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;c);
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(c==a+b)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"The answer is right "</span>);
+</div><div class="hljs-line">            x++;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"The answer is wrong !"</span>);
+</div><div class="hljs-line">            x=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\nProgram is over.\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li38检查系统鼠标">li38检查系统鼠标</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span><span class="hljs-comment">//包含库函数exit()</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadmous</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>;
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    loadmous();
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadmous</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> *p;
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>((p=getenv(<span class="hljs-string">"MOUSE"</span>))!=<span class="hljs-literal">NULL</span>)<span class="hljs-comment">//调用系统变量函数判断有无鼠标</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">strcmp</span>(p, <span class="hljs-string">"YES"</span>))
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Mouse is OK\n"</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n No mouse\n"</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li40转置矩阵">li40转置矩阵</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs mipsasm"><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment">#define N 5</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">void transp(int a[][N], int n)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int i, <span class="hljs-keyword">j, </span>k<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i&lt;n; i++)</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;i; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">        {
+</div><div class="hljs-line">            k=a[i][<span class="hljs-keyword">j]; </span>
+</div><div class="hljs-line">            a[i][<span class="hljs-keyword">j]= </span>a[<span class="hljs-keyword">j][i];
+</span></div><div class="hljs-line">            a[<span class="hljs-keyword">j][i]=k;
+</span></div><div class="hljs-line">        }
+</div><div class="hljs-line">}
+</div><div class="hljs-line">int main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int n, i, <span class="hljs-keyword">j;
+</span></div><div class="hljs-line">    int x[N][N]<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    printf(<span class="hljs-string">"input n:"</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">scanf("%d", </span>&amp;n)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i&lt;n; i++)</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;n; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">            <span class="hljs-keyword">scanf("%d", </span>&amp;x[i][<span class="hljs-keyword">j]);
+</span></div><div class="hljs-line">    transp(x,n)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i&lt;n; i++)</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;n; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">            printf(<span class="hljs-string">"   %d"</span>, x[i][<span class="hljs-keyword">j]);
+</span></div><div class="hljs-line">        printf(<span class="hljs-string">"\n"</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    return <span class="hljs-number">0</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li41pc信息显示">li41pc信息显示</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctype.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> letter;
+</div><div class="hljs-line">    <span class="hljs-keyword">do</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"A Display directory listing \n"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"B Display disk information\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"C Change system date\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Q Quit\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Chioce:"</span>);
+</div><div class="hljs-line">        letter=getchar();
+</div><div class="hljs-line">        letter=<span class="hljs-built_in">toupper</span>(letter);
+</div><div class="hljs-line">        <span class="hljs-keyword">switch</span>(letter)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span>'A': system(<span class="hljs-string">"DIR"</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span><span class="hljs-string">'B'</span>: system(<span class="hljs-string">"CHKDSK"</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">case</span>'C': system(<span class="hljs-string">"DATE"</span>); <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    }<span class="hljs-keyword">while</span>(letter!=<span class="hljs-string">'Q'</span>);
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li42正整数个数统计">li42正整数个数统计</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAX 100</span>
+</div><div class="hljs-line"><span class="hljs-keyword">int</span> xx[MAX];
+</div><div class="hljs-line"><span class="hljs-keyword">int</span> totnum=<span class="hljs-number">0</span>;
+</div><div class="hljs-line"><span class="hljs-keyword">int</span> totcnt=<span class="hljs-number">0</span>;
+</div><div class="hljs-line"><span class="hljs-keyword">double</span> totpjz=<span class="hljs-number">0.0</span>;
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">readdat</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>;
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">writedat</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>;
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">calvalue</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i;
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> j;
+</div><div class="hljs-line">    <span class="hljs-keyword">long</span> val=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;MAX; i++)
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(xx[i]) totnum++;    <span class="hljs-comment">//正整数个数统计</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;totnum; i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        j=(xx[i]&gt;&gt;<span class="hljs-number">1</span>);          <span class="hljs-comment">//所有数右移一位</span>
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(j%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            totcnt++;       <span class="hljs-comment">//经处理后其中偶数个数统计</span>
+</div><div class="hljs-line">            val+=xx[i];
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    totpjz=(<span class="hljs-keyword">double</span>)val/totcnt;  <span class="hljs-comment">//求这些偶数平均值</span>
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(readdat())
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"the file cann't open!\007\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    calvalue();
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"the totnum is %d\n"</span>, totnum);
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"the totcnt is %d\n"</span>, totcnt);
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"the totpjz is %.2lf\n"</span>, totpjz);
+</div><div class="hljs-line">    writedat();
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">readdat</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    FILE *fp;
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>((fp=fopen(<span class="hljs-string">"in.txt"</span>, <span class="hljs-string">"r"</span>))==<span class="hljs-literal">NULL</span>)
+</div><div class="hljs-line">        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(!feof(fp))
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-built_in">fscanf</span>(fp, <span class="hljs-string">"%d"</span>, &amp;xx[i++]);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    fclose(fp);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">writedat</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    FILE *fp;
+</div><div class="hljs-line">    fp=fopen(<span class="hljs-string">"my4.txt"</span>, <span class="hljs-string">"w"</span>);
+</div><div class="hljs-line">    <span class="hljs-built_in">fprintf</span>(fp, <span class="hljs-string">"%d\n%d\n%.2lf\n"</span>, totnum, totcnt, totpjz);
+</div><div class="hljs-line">    fclose(fp);
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li43电报处理">li43电报处理</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> CHANGE 1</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> str[<span class="hljs-number">100</span>];
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> c;
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"please input some word:"</span>);
+</div><div class="hljs-line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>, &amp;str);
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>((c=str[i])!=<span class="hljs-string">'\0'</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        i++;
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> CHANGE</span>
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>((c&gt;=<span class="hljs-string">'A'</span>&amp;&amp;c&lt;<span class="hljs-string">'Z'</span>)||c&gt;=<span class="hljs-string">'a'</span>&amp;&amp;c&lt;<span class="hljs-string">'z'</span>)
+</div><div class="hljs-line">            c++;
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>((c==<span class="hljs-string">'Z'</span>)||(c==<span class="hljs-string">'z'</span>))
+</div><div class="hljs-line">            c=c<span class="hljs-number">-25</span>;
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> </span>
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c"</span>, c);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li44字符串统计">li44字符串统计</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 100</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> up=<span class="hljs-number">0</span>, low=<span class="hljs-number">0</span>, digit=<span class="hljs-number">0</span>, space=<span class="hljs-number">0</span>, other=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> *p, s[N];
+</div><div class="hljs-line">
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"the string:\n"</span>);
+</div><div class="hljs-line">    p=s;
+</div><div class="hljs-line">    gets(p);
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(*p!=<span class="hljs-string">'\0'</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>((*p&gt;=<span class="hljs-string">'A'</span>)&amp;&amp;(*p&lt;=<span class="hljs-string">'Z'</span>))
+</div><div class="hljs-line">            up++;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((*p&gt;=<span class="hljs-string">'a'</span>)&amp;&amp;(*p&lt;=<span class="hljs-string">'z'</span>))
+</div><div class="hljs-line">            low++;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(*p==<span class="hljs-string">' '</span>)
+</div><div class="hljs-line">            space++;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((*p&gt;=<span class="hljs-string">'0'</span>)&amp;&amp;(*p&lt;=<span class="hljs-string">'9'</span>))
+</div><div class="hljs-line">            digit++;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">            other++;
+</div><div class="hljs-line">        p++;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"up letter:%d\nlow letter:%d\nspace letter:%d\nother letter:%d\n"</span>, up, low, space, other);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li45数字排序">li45数字排序</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 20</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i, j;
+</div><div class="hljs-line">    <span class="hljs-keyword">float</span> a[N], temp, *p;
+</div><div class="hljs-line">    p=a;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input %d numbers\n"</span>, N);
+</div><div class="hljs-line">
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%f"</span>, p+i);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N<span class="hljs-number">-1</span>; i++)
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=i+<span class="hljs-number">1</span>; j&lt;N; j++)
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(*(p+i)&lt;*(p+j))
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                temp=*(p+i);
+</div><div class="hljs-line">                *(p+i)=*(p+j);
+</div><div class="hljs-line">                *(p+j)=temp;
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(i%<span class="hljs-number">5</span>==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%8.3f"</span>, *(p+i));
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li46数字插入">li46数字插入</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs excel"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">#define <span class="hljs-built_in">N</span> <span class="hljs-number">10</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-built_in">int</span> main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-built_in">int</span> a[<span class="hljs-number">12</span>], p, x, *<span class="hljs-built_in">t</span>;
+</div><div class="hljs-line">    for(<span class="hljs-built_in">t</span>=a+<span class="hljs-number">1</span>; <span class="hljs-built_in">t</span>&lt;=a+<span class="hljs-built_in">N</span>; <span class="hljs-built_in">t</span>++)
+</div><div class="hljs-line">        scanf(<span class="hljs-string">"%d"</span>, <span class="hljs-built_in">t</span>);
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%d"</span>, &amp;x);
+</div><div class="hljs-line">    <span class="hljs-built_in">t</span>=a; 
+</div><div class="hljs-line">    p=<span class="hljs-number">1</span>; 
+</div><div class="hljs-line">    while(x&gt;*(<span class="hljs-built_in">t</span>+p)&amp;&amp;p&lt;=<span class="hljs-built_in">N</span>)
+</div><div class="hljs-line">        p++;
+</div><div class="hljs-line">    for(<span class="hljs-built_in">t</span>=a+<span class="hljs-built_in">N</span>; <span class="hljs-built_in">t</span>&gt;=a+p; <span class="hljs-built_in">t</span>--)
+</div><div class="hljs-line">        *(<span class="hljs-built_in">t</span>+<span class="hljs-number">1</span>)=*<span class="hljs-built_in">t</span>;
+</div><div class="hljs-line">    <span class="hljs-built_in">t</span>=a+p;
+</div><div class="hljs-line">    *<span class="hljs-built_in">t</span>=x;
+</div><div class="hljs-line">    for(<span class="hljs-built_in">t</span>=a+<span class="hljs-number">1</span>; <span class="hljs-built_in">t</span>&lt;=a+<span class="hljs-built_in">N</span>+<span class="hljs-number">1</span>; <span class="hljs-built_in">t</span>++)
+</div><div class="hljs-line">        printf(<span class="hljs-string">"%5d"</span>,*<span class="hljs-built_in">t</span>);
+</div><div class="hljs-line">    printf(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    return <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li47求矩阵最值">li47求矩阵最值</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs mipsasm"><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment">#define N1 3</span>
+</div><div class="hljs-line"><span class="hljs-comment">#define N2 4</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int a[N1][N2], max, min, (*ap)[N2]<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    int i, <span class="hljs-keyword">j, </span>row1, row2, column1, column2<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    ap=a<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    row1=row2=column1=column2=<span class="hljs-number">0</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i&lt;N1; i++)</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;N2; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">            <span class="hljs-keyword">scanf("%d", </span>*(ap+i)+<span class="hljs-keyword">j);
+</span></div><div class="hljs-line">    max=min=a[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i&lt;N1; i++)</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;N2; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">        {
+</div><div class="hljs-line">            if(max&lt;*(*(ap+i)+<span class="hljs-keyword">j))
+</span></div><div class="hljs-line">            {
+</div><div class="hljs-line">                max=*(*(ap+i)+<span class="hljs-keyword">j);
+</span></div><div class="hljs-line">                row1=i<span class="hljs-comment">;</span>
+</div><div class="hljs-line">                column1=<span class="hljs-keyword">j;
+</span></div><div class="hljs-line">            }
+</div><div class="hljs-line">            if(min&gt;*(*(ap+i)+<span class="hljs-keyword">j))
+</span></div><div class="hljs-line">            {
+</div><div class="hljs-line">                min=*(*(ap+i)+<span class="hljs-keyword">j);
+</span></div><div class="hljs-line">                row2=i<span class="hljs-comment">;</span>
+</div><div class="hljs-line">                column2=<span class="hljs-keyword">j;
+</span></div><div class="hljs-line">            }
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    printf(<span class="hljs-string">"max=%d\trow1=%4d column1=%4d\n"</span>, max, row1+<span class="hljs-number">1</span>, column1+<span class="hljs-number">1</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    printf(<span class="hljs-string">"min=%d\trow2=%4d column2=%4d\n"</span>, min, row2+<span class="hljs-number">1</span>, column2+<span class="hljs-number">1</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    return <span class="hljs-number">0</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li48优秀学生统计">li48优秀学生统计</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs mipsasm"><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment">#define N 4   //科目数</span>
+</div><div class="hljs-line"><span class="hljs-comment">#define M 5   //学生数</span>
+</div><div class="hljs-line">void search(int (*p)[N])
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int i, <span class="hljs-keyword">j, </span>flag<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i&lt;M; i++)</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;N; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">        {
+</div><div class="hljs-line">            flag=<span class="hljs-number">0</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">            if(*(*(p+i)+<span class="hljs-keyword">j)&gt;=90)
+</span></div><div class="hljs-line">                flag=<span class="hljs-number">1</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">            if(flag==<span class="hljs-number">1</span>)
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                printf(<span class="hljs-string">"No.%d is excellence, score are:"</span>, (i+<span class="hljs-number">1</span>))<span class="hljs-comment">;</span>
+</div><div class="hljs-line">                for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;N; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">                    printf(<span class="hljs-string">"%5.1d"</span>, (*(*(p+i)+<span class="hljs-keyword">j)));
+</span></div><div class="hljs-line">                printf(<span class="hljs-string">"\n"</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int i, <span class="hljs-keyword">j;
+</span></div><div class="hljs-line">    int <span class="hljs-keyword">score[M][N];
+</span></div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i&lt;M; i++)</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        printf(<span class="hljs-string">"Input %d score of No.%d:\n"</span>, N, i+<span class="hljs-number">1</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;N; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">            <span class="hljs-keyword">scanf("%d", </span>&amp;<span class="hljs-keyword">score[i][j]);
+</span></div><div class="hljs-line">    }
+</div><div class="hljs-line">    search(<span class="hljs-keyword">score);
+</span></div><div class="hljs-line">    return <span class="hljs-number">0</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li49字符串排序">li49字符串排序</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LENGTH 30</span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 10</span>
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">void</span>  <span class="hljs-title">sort</span><span class="hljs-params">(<span class="hljs-keyword">char</span> **p)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i, j;
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> *pstr;
+</div><div class="hljs-line">
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=i+<span class="hljs-number">1</span>; j&lt;N; j++)
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">strcmp</span>(*(p+i),*(p+j))&gt;<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                pstr=*(p+j);
+</div><div class="hljs-line">                *(p+j)=*(p+i);
+</div><div class="hljs-line">                *(p+i)=pstr;
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i;
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> *pstr[N];
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> s[N][LENGTH];
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">        pstr[i]=s[i];
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input %d strings:\n"</span>, N);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">        gets(pstr[i]);
+</div><div class="hljs-line">    sort(pstr);
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"The sorted string are:\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">        <span class="hljs-built_in">puts</span>(pstr[i]);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li50计算定积分">li50计算定积分</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs kotlin"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">#define N <span class="hljs-number">10000</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    float y;
+</div><div class="hljs-line">    float fbds(float);
+</div><div class="hljs-line">    float jifen(float, float, float(*<span class="hljs-function"><span class="hljs-keyword">fun</span>)<span class="hljs-params">(float)</span></span>);
+</div><div class="hljs-line">    y=jifen(<span class="hljs-number">0.0</span>, <span class="hljs-number">2.0</span>, fbds);
+</div><div class="hljs-line">    printf(<span class="hljs-string">"y= %6.2f\n"</span>, y);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line">float fbds(float x)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> (<span class="hljs-number">1.0</span>+x+x*x*x);
+</div><div class="hljs-line">}
+</div><div class="hljs-line">float jifen(float a, float b, float(*<span class="hljs-function"><span class="hljs-keyword">fun</span>)<span class="hljs-params">(float)</span></span>)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int i;
+</div><div class="hljs-line">    float h, s;
+</div><div class="hljs-line">    h=(b-a)/N;
+</div><div class="hljs-line">    s=((*<span class="hljs-function"><span class="hljs-keyword">fun</span>)<span class="hljs-params">(a)</span></span>+(*<span class="hljs-function"><span class="hljs-keyword">fun</span>)<span class="hljs-params">(b)</span></span>)/<span class="hljs-number">2.0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">        s+=(*<span class="hljs-function"><span class="hljs-keyword">fun</span>)<span class="hljs-params">(a+i*h)</span></span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> (s*h);
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li53师生信息储存">li53师生信息储存</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 5</span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> M 20</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">struct</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">char</span> name[M];
+</div><div class="hljs-line">        <span class="hljs-keyword">int</span> age;
+</div><div class="hljs-line">        <span class="hljs-keyword">char</span> sex;
+</div><div class="hljs-line">        <span class="hljs-keyword">char</span> job;
+</div><div class="hljs-line">        <span class="hljs-keyword">union</span>
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-keyword">int</span> <span class="hljs-keyword">class</span>;
+</div><div class="hljs-line">            <span class="hljs-keyword">char</span> office[M];
+</div><div class="hljs-line">        }depart;
+</div><div class="hljs-line">    }info[N];
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input name:\n"</span>);
+</div><div class="hljs-line">        gets(info[i].name);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input age:\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;info[i].age);
+</div><div class="hljs-line">        getchar();
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input sex(m/w):"</span>);
+</div><div class="hljs-line">        info[i].sex=getchar();
+</div><div class="hljs-line">        getchar();
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input jobs(s/t):"</span>);
+</div><div class="hljs-line">        info[i].job=getchar();
+</div><div class="hljs-line">        getchar();
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(info[i].job==<span class="hljs-string">'s'</span>)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input class:\n"</span>);
+</div><div class="hljs-line">            <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;info[i].depart.<span class="hljs-keyword">class</span>);
+</div><div class="hljs-line">            getchar();
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(info[i].job==<span class="hljs-string">'t'</span>)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input office:"</span>);
+</div><div class="hljs-line">            gets(info[i].depart.office);
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input wrong job, return!"</span>);
+</div><div class="hljs-line">            i--;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n name \t\t age \t sex \t job \tdepart "</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(info[i].job==<span class="hljs-string">'s'</span>)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n %-15s %-3d \t %c \t %-6c %-20d"</span>, info[i].name, info[i].age,
+</div><div class="hljs-line">            info[i].sex, info[i].job, info[i].depart.<span class="hljs-keyword">class</span>);
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n %-15s %-3d \t %c \t %-6c %-20s"</span>, info[i].name, info[i].age,
+</div><div class="hljs-line">            info[i].sex, info[i].job, info[i].depart.office);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li54创建链表">li54创建链表</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span> </span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LEN sizeof(struct grade)</span>
+</div><div class="hljs-line"><span class="hljs-keyword">struct</span> grade
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> no[<span class="hljs-number">7</span>];
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> score;
+</div><div class="hljs-line">    <span class="hljs-keyword">struct</span> grade *next;
+</div><div class="hljs-line">};
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">struct</span> grade *<span class="hljs-title">create</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">struct</span> grade *head=<span class="hljs-literal">NULL</span>, *<span class="hljs-keyword">new</span>, *tail;
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> count=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(;;)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">new</span>=(<span class="hljs-keyword">struct</span> grade *)<span class="hljs-built_in">malloc</span>(LEN);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input the number of student No.%d(6 bytes): "</span>, count+<span class="hljs-number">1</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%6s"</span>, <span class="hljs-keyword">new</span>-&gt;no);
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">strcmp</span>(<span class="hljs-keyword">new</span>-&gt;no, <span class="hljs-string">"000000"</span>)==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">free</span>(<span class="hljs-keyword">new</span>);
+</div><div class="hljs-line">            <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input the score of the student No.%d: "</span>, count+<span class="hljs-number">1</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;<span class="hljs-keyword">new</span>-&gt;score);
+</div><div class="hljs-line">        count++;
+</div><div class="hljs-line">        <span class="hljs-keyword">new</span>-&gt;next=<span class="hljs-literal">NULL</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(count==<span class="hljs-number">1</span>)
+</div><div class="hljs-line">            head=<span class="hljs-keyword">new</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">            tail-&gt;next=<span class="hljs-keyword">new</span>;
+</div><div class="hljs-line">        tail=<span class="hljs-keyword">new</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> (head);
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">struct</span> grade *head;
+</div><div class="hljs-line">    head=create();
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="li55整数统计">li55整数统计</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LENGTH sizeof(struct number)</span>
+</div><div class="hljs-line"><span class="hljs-keyword">struct</span> number
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">long</span> key;
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> count; 
+</div><div class="hljs-line">    <span class="hljs-keyword">struct</span> number *next;
+</div><div class="hljs-line">};
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">struct</span> number *<span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">long</span> k, <span class="hljs-keyword">struct</span> number *head)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> flag=<span class="hljs-number">1</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">struct</span> number *p=head;
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(p!=<span class="hljs-literal">NULL</span>&amp;&amp;flag==<span class="hljs-number">1</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(p-&gt;key==k)
+</div><div class="hljs-line">            flag=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span> 
+</div><div class="hljs-line">            p=p-&gt;next;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(flag==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">        p-&gt;count++;
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        p=head;
+</div><div class="hljs-line">        head=(<span class="hljs-keyword">struct</span> number *)<span class="hljs-built_in">malloc</span>(LENGTH);
+</div><div class="hljs-line">        head-&gt;key=k;
+</div><div class="hljs-line">        head-&gt;count=<span class="hljs-number">1</span>;
+</div><div class="hljs-line">        head-&gt;next=p;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span>(head);
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">list</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> number *p)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"The result are:\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(p!=<span class="hljs-literal">NULL</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%16ld %6d\n"</span>, p-&gt;key, p-&gt;count);
+</div><div class="hljs-line">        p=p-&gt;next;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">struct</span> number *head=<span class="hljs-literal">NULL</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">long</span> k;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Input natural number,-1 to end:\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%ld"</span>, &amp;k);
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(k&gt;=<span class="hljs-number">0</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        head=add(k, head);
+</div><div class="hljs-line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%ld"</span>, &amp;k);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">list</span>(head);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="报数游戏">报数游戏</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs perl"><div class="hljs-line"><span class="hljs-comment">#define N 18</span>
+</div><div class="hljs-line"><span class="hljs-comment">#define M 3</span>
+</div><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">int</span> main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> a[N], k=<span class="hljs-number">0</span>, i, j;
+</div><div class="hljs-line">    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"The original orders are: \n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;N; i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        a[i] = i+<span class="hljs-number">1</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">printf</span>(<span class="hljs-string">"%3d"</span>, a[i]);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; k&lt;N*M; i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(a[i%N]!=-<span class="hljs-number">1</span>)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            k++;
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(k%3==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                a[i%N]=-<span class="hljs-number">1</span>;
+</div><div class="hljs-line">                <span class="hljs-keyword">printf</span>(<span class="hljs-string">"\n%2d is out!"</span>, (i%N+<span class="hljs-number">1</span>));
+</div><div class="hljs-line">                <span class="hljs-keyword">if</span>(k!=N*<span class="hljs-number">3</span>)
+</div><div class="hljs-line">                    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"The new order is:"</span>);
+</div><div class="hljs-line">                <span class="hljs-keyword">else</span> 
+</div><div class="hljs-line">                    <span class="hljs-keyword">printf</span>(<span class="hljs-string">"The game is over!"</span>);
+</div><div class="hljs-line">                <span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>; j&lt;N; j++)
+</div><div class="hljs-line">                {
+</div><div class="hljs-line">                    <span class="hljs-keyword">if</span>(a[j]!=-<span class="hljs-number">1</span>)
+</div><div class="hljs-line">                        <span class="hljs-keyword">printf</span>(<span class="hljs-string">"%3d"</span>, a[j]);
+</div><div class="hljs-line">                }
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="猜座位">猜座位</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta"># <span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i,j,k,m,p;
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> xwei[<span class="hljs-number">5</span>],side[<span class="hljs-number">10</span>];
+</div><div class="hljs-line">    <span class="hljs-keyword">char</span> ch[<span class="hljs-number">10</span>]={<span class="hljs-string">'B'</span>,<span class="hljs-string">'A'</span>,<span class="hljs-string">'C'</span>,<span class="hljs-string">'E'</span>,<span class="hljs-string">'A'</span>,<span class="hljs-string">'B'</span>,<span class="hljs-string">'D'</span>,<span class="hljs-string">'C'</span>,<span class="hljs-string">'E'</span>,<span class="hljs-string">'D'</span>};
+</div><div class="hljs-line">    xwei[<span class="hljs-number">0</span>]=<span class="hljs-string">'A'</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>;i&lt;=<span class="hljs-number">5</span>;i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        xwei[i]=<span class="hljs-string">'B'</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=<span class="hljs-number">1</span>;j&lt;<span class="hljs-number">5</span>;j++)
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(j!=i)
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                xwei[j] = <span class="hljs-string">'C'</span>;
+</div><div class="hljs-line">                <span class="hljs-keyword">for</span>(k=<span class="hljs-number">1</span>;k&lt;<span class="hljs-number">5</span>;k++)
+</div><div class="hljs-line">                <span class="hljs-keyword">if</span>(k!=i&amp;&amp;k!=j)
+</div><div class="hljs-line">                {
+</div><div class="hljs-line">                    xwei[k]=<span class="hljs-string">'D'</span>;
+</div><div class="hljs-line">                    xwei[<span class="hljs-number">10</span>-i-j-k]=<span class="hljs-string">'E'</span>;
+</div><div class="hljs-line">                    <span class="hljs-keyword">for</span>(p=<span class="hljs-number">0</span>;p&lt;<span class="hljs-number">5</span>;p++)
+</div><div class="hljs-line">                    {
+</div><div class="hljs-line">                        side[<span class="hljs-number">2</span>*p]=xwei[(p+<span class="hljs-number">1</span>)%<span class="hljs-number">5</span>];
+</div><div class="hljs-line">                        side[<span class="hljs-number">2</span>*p+<span class="hljs-number">1</span>]=xwei[(p+<span class="hljs-number">4</span>)%<span class="hljs-number">5</span>];
+</div><div class="hljs-line">                    }
+</div><div class="hljs-line">                    <span class="hljs-keyword">for</span>(p=<span class="hljs-number">0</span>,m=<span class="hljs-number">0</span>;p&lt;<span class="hljs-number">10</span>;p+=<span class="hljs-number">2</span>)
+</div><div class="hljs-line">                    {
+</div><div class="hljs-line">                        <span class="hljs-keyword">if</span>((side[p]==ch[p])+(side[p+<span class="hljs-number">1</span>]==ch[p+<span class="hljs-number">1</span>])==<span class="hljs-number">1</span>)
+</div><div class="hljs-line">                            m++;
+</div><div class="hljs-line">                    }
+</div><div class="hljs-line">                    <span class="hljs-keyword">if</span>(m==<span class="hljs-number">5</span>)
+</div><div class="hljs-line">                    {
+</div><div class="hljs-line">                        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"The order is:"</span>);
+</div><div class="hljs-line">                        <span class="hljs-keyword">for</span>(p=<span class="hljs-number">0</span>;p&lt;<span class="hljs-number">5</span>;p++)
+</div><div class="hljs-line">                            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%2d %c"</span>,(p+<span class="hljs-number">1</span>),xwei[p]);
+</div><div class="hljs-line">                    }
+</div><div class="hljs-line">                }
+</div><div class="hljs-line">
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="打印菱形图案">打印菱形图案</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i,j;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;<span class="hljs-number">4</span>-i;j++)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">" "</span>);
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;i;j++)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"*"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;++i)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;i;j++)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">" "</span>);
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;<span class="hljs-number">4</span>-i;j++)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"*"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="打印孪生素数">打印孪生素数</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> k,n,isprime(<span class="hljs-keyword">int</span>);
+</div><div class="hljs-line">    n=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">    k=<span class="hljs-number">2</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(n&lt;<span class="hljs-number">15</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(isprime(k)&amp;&amp;isprime(k+<span class="hljs-number">2</span>))
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            n=n+<span class="hljs-number">1</span>;
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d,%d\n"</span>,k,k+<span class="hljs-number">2</span>);
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        k=k+<span class="hljs-number">1</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">isprime</span> <span class="hljs-params">(<span class="hljs-keyword">int</span> a)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> k,j;
+</div><div class="hljs-line">    j=<span class="hljs-number">1</span>;
+</div><div class="hljs-line">    k=<span class="hljs-number">2</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>((k&lt;=a/<span class="hljs-number">2</span>)&amp;&amp;j)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(a%k==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            j=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">else</span> 
+</div><div class="hljs-line">            k=k+<span class="hljs-number">1</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span>(j);
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="个人所得税计算">个人所得税计算</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs ruby"><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main(void)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    float a,b;
+</div><div class="hljs-line">    int i;
+</div><div class="hljs-line">    printf(<span class="hljs-string">"input one number:"</span>);
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%f"</span>,&amp;a);
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(a&gt;=<span class="hljs-number">4000</span>)
+</div><div class="hljs-line">        i=<span class="hljs-number">4</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">        i=a/<span class="hljs-number">1000</span>;
+</div><div class="hljs-line">    switch(i)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span><span class="hljs-symbol">:b=a*</span><span class="hljs-number">0</span>.<span class="hljs-number">0</span>;<span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span><span class="hljs-symbol">:b=a*</span><span class="hljs-number">0</span>.<span class="hljs-number">05</span>;<span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span><span class="hljs-symbol">:b=a*</span><span class="hljs-number">0</span>.<span class="hljs-number">10</span>;<span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span><span class="hljs-symbol">:b=a*</span><span class="hljs-number">0</span>.<span class="hljs-number">15</span>;<span class="hljs-keyword">break</span>;        
+</div><div class="hljs-line">    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span><span class="hljs-symbol">:b=a*</span><span class="hljs-number">0</span>.<span class="hljs-number">20</span>;<span class="hljs-keyword">break</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    printf(<span class="hljs-string">"%f\n"</span>,b);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="奖金发放问题">奖金发放问题</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs lsl"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main(void)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    long int i;
+</div><div class="hljs-line">    int bonus1,bonus2,bonus4,bonus6,bonus10,bonus;
+</div><div class="hljs-line">    printf(<span class="hljs-string">"Please input company's income： "</span>);
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%ld"</span>,&amp;i);
+</div><div class="hljs-line">    bonus1=<span class="hljs-number">100000</span>*<span class="hljs-number">0.1</span>;
+</div><div class="hljs-line">    bonus2=bonus1+<span class="hljs-number">100000</span>*<span class="hljs-number">0.075</span>;
+</div><div class="hljs-line">    bonus4=bonus2+<span class="hljs-number">200000</span>*<span class="hljs-number">0.05</span>;
+</div><div class="hljs-line">    bonus6=bonus4+<span class="hljs-number">200000</span>*<span class="hljs-number">0.03</span>;
+</div><div class="hljs-line">    bonus10=bonus6+<span class="hljs-number">400000</span>*<span class="hljs-number">0.015</span>;
+</div><div class="hljs-line">    if(i&lt;=<span class="hljs-number">100000</span>)
+</div><div class="hljs-line">        bonus=i*<span class="hljs-number">0.1</span>;
+</div><div class="hljs-line">    else
+</div><div class="hljs-line">        if(i&lt;=<span class="hljs-number">200000</span>)
+</div><div class="hljs-line">            bonus=bonus1+(i<span class="hljs-number">-100000</span>)*<span class="hljs-number">0.075</span>;
+</div><div class="hljs-line">        else
+</div><div class="hljs-line">            if(i&lt;=<span class="hljs-number">400000</span>)
+</div><div class="hljs-line">                bonus=bonus2+(i<span class="hljs-number">-200000</span>)*<span class="hljs-number">0.05</span>;
+</div><div class="hljs-line">            else
+</div><div class="hljs-line">                if(i&lt;=<span class="hljs-number">600000</span>)
+</div><div class="hljs-line">                    bonus=bonus4+(i<span class="hljs-number">-400000</span>)*<span class="hljs-number">0.03</span>;
+</div><div class="hljs-line">                else
+</div><div class="hljs-line">                    if(i&lt;=<span class="hljs-number">1000000</span>)
+</div><div class="hljs-line">                        bonus=bonus6+(i<span class="hljs-number">-600000</span>)*<span class="hljs-number">0.015</span>;
+</div><div class="hljs-line">                    else
+</div><div class="hljs-line">                        bonus=bonus10+(i<span class="hljs-number">-1000000</span>)*<span class="hljs-number">0.01</span>;
+</div><div class="hljs-line">    printf(<span class="hljs-string">"bonus=%d<span class="hljs-subst">\n</span>"</span>,bonus);
+</div><div class="hljs-line">    return <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="欧几里得euclid算法">欧几里得(Euclid)算法</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs mipsasm"><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main(void)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int a,<span class="hljs-keyword">b,x,y,gcd,r,t;
+</span></div><div class="hljs-line">    <span class="hljs-keyword">scanf("%d,%d",&amp;a,&amp;b);
+</span></div><div class="hljs-line">    if(a&lt;<span class="hljs-keyword">b)
+</span></div><div class="hljs-line">    {
+</div><div class="hljs-line">        t=a<span class="hljs-comment">;</span>
+</div><div class="hljs-line">        a=<span class="hljs-keyword">b;
+</span></div><div class="hljs-line">        <span class="hljs-keyword">b=t;
+</span></div><div class="hljs-line">    }
+</div><div class="hljs-line">    x=a<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    y=<span class="hljs-keyword">b;
+</span></div><div class="hljs-line">    if(y==<span class="hljs-number">0</span>) gcd=x<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    else
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        do
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            r=x%y<span class="hljs-comment">;</span>
+</div><div class="hljs-line">            x=y<span class="hljs-comment">;</span>
+</div><div class="hljs-line">            y=r<span class="hljs-comment">;</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        while(y!=<span class="hljs-number">0</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">        gcd=x<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    printf(<span class="hljs-string">"%d,%d的最大公约数为%d\n"</span>,a,<span class="hljs-keyword">b,gcd);
+</span></div><div class="hljs-line">    return <span class="hljs-number">0</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="求素数">求素数</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;math.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 101</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i,j,line,a[N];
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">2</span>;i&lt;N;i++)
+</div><div class="hljs-line">        a[i]=i;
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">2</span>;i&lt;<span class="hljs-built_in">sqrt</span>(N);i++)
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(j=i+<span class="hljs-number">1</span>;j&lt;N;j++)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(a[i]!=<span class="hljs-number">0</span>&amp;&amp;a[j]!=<span class="hljs-number">0</span>)
+</div><div class="hljs-line">                <span class="hljs-keyword">if</span>(a[j]%a[i]==<span class="hljs-number">0</span>)
+</div><div class="hljs-line">                    a[j]=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">2</span>,line=<span class="hljs-number">0</span>;i&lt;N;i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(a[i]!=<span class="hljs-number">0</span>)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%5d"</span>,a[i]);
+</div><div class="hljs-line">            line++;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(line==<span class="hljs-number">10</span>) 
+</div><div class="hljs-line">        {<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">         line=<span class="hljs-number">0</span>;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="数据加密">数据加密</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs lsl"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main(void)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int a,i,t,aa[<span class="hljs-number">4</span>];
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%d"</span>,&amp;a);
+</div><div class="hljs-line">    aa[<span class="hljs-number">0</span>]=a%<span class="hljs-number">10</span>;
+</div><div class="hljs-line">    aa[<span class="hljs-number">1</span>]=a%<span class="hljs-number">100</span>/<span class="hljs-number">10</span>;
+</div><div class="hljs-line">    aa[<span class="hljs-number">2</span>]=a%<span class="hljs-number">1000</span>/<span class="hljs-number">100</span>;
+</div><div class="hljs-line">    aa[<span class="hljs-number">3</span>]=a/<span class="hljs-number">1000</span>;
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span>;i&lt;=<span class="hljs-number">3</span>;i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        aa[i]+=<span class="hljs-number">5</span>;
+</div><div class="hljs-line">        aa[i]%=<span class="hljs-number">10</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span>;i&lt;=<span class="hljs-number">3</span>/<span class="hljs-number">2</span>;i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        t=aa[i];
+</div><div class="hljs-line">        aa[i]=aa[<span class="hljs-number">3</span>-i];
+</div><div class="hljs-line">        aa[<span class="hljs-number">3</span>-i]=t;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    for(i=<span class="hljs-number">3</span>;i&gt;=<span class="hljs-number">0</span>;i--)
+</div><div class="hljs-line">        printf(<span class="hljs-string">"%d"</span>,aa[i]);
+</div><div class="hljs-line">    printf(<span class="hljs-string">"<span class="hljs-subst">\n</span>"</span>);
+</div><div class="hljs-line">    return <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="数据解密">数据解密</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs lsl"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main(void)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int a,i,t,aa[<span class="hljs-number">4</span>];
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%d"</span>,&amp;a);
+</div><div class="hljs-line">    aa[<span class="hljs-number">0</span>]=a%<span class="hljs-number">10</span>;
+</div><div class="hljs-line">    aa[<span class="hljs-number">1</span>]=a%<span class="hljs-number">100</span>/<span class="hljs-number">10</span>;
+</div><div class="hljs-line">    aa[<span class="hljs-number">2</span>]=a%<span class="hljs-number">1000</span>/<span class="hljs-number">100</span>;
+</div><div class="hljs-line">    aa[<span class="hljs-number">3</span>]=a/<span class="hljs-number">1000</span>;
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span>;i&lt;=<span class="hljs-number">3</span>/<span class="hljs-number">2</span>;i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        t=aa[i];
+</div><div class="hljs-line">        aa[i]=aa[<span class="hljs-number">3</span>-i];
+</div><div class="hljs-line">        aa[<span class="hljs-number">3</span>-i]=t;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span>;i&lt;=<span class="hljs-number">3</span>;i++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        aa[i]+=<span class="hljs-number">10</span>;
+</div><div class="hljs-line">        aa[i]-=<span class="hljs-number">5</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    for(i=<span class="hljs-number">3</span>;i&gt;=<span class="hljs-number">0</span>;i--)
+</div><div class="hljs-line">        printf(<span class="hljs-string">"%d"</span>,aa[i]);
+</div><div class="hljs-line">    printf(<span class="hljs-string">"<span class="hljs-subst">\n</span>"</span>);
+</div><div class="hljs-line">    return <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="数据转换">数据转换</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs lsl"><div class="hljs-line">#include &lt;stdio.h&gt;
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main(void)
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int a = <span class="hljs-number">0</span>, b = <span class="hljs-number">8</span>, k = <span class="hljs-number">1</span>;
+</div><div class="hljs-line">    long xa = <span class="hljs-number">0</span>, xb = <span class="hljs-number">0</span>, x1 = <span class="hljs-number">0</span>, x2 = <span class="hljs-number">0</span>;
+</div><div class="hljs-line">    printf(<span class="hljs-string">"Please input the number: <span class="hljs-subst">\n</span>"</span>);
+</div><div class="hljs-line">    scanf(<span class="hljs-string">"%ld"</span>, &amp;xa);
+</div><div class="hljs-line">    x1 = xa;
+</div><div class="hljs-line">    while(x1 != <span class="hljs-number">0</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        x2 += (x1 % <span class="hljs-number">10</span>) * k;
+</div><div class="hljs-line">        x1 /= <span class="hljs-number">10</span>;
+</div><div class="hljs-line">        k *= a;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    k = <span class="hljs-number">1</span>;
+</div><div class="hljs-line">    x1 = x2;
+</div><div class="hljs-line">    while(x1 != <span class="hljs-number">0</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        xb += (x1 % b) * k;
+</div><div class="hljs-line">        x1 /= b;
+</div><div class="hljs-line">        k *= <span class="hljs-number">10</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    printf(<span class="hljs-string">"%ld(%d)=%ld(%d)=%ld(%d)<span class="hljs-subst">\n</span>"</span>, xa,a,x2,<span class="hljs-number">10</span>,xb,b);
+</div><div class="hljs-line">    return <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="水仙花数">水仙花数</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-comment">//水仙花数是指一个三位数，其各位数字的立方和等于该数本身。</span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> i,j,k,n;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"water flower'number is:"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(n=<span class="hljs-number">100</span>;n&lt;<span class="hljs-number">1000</span>;n++)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        i=n/<span class="hljs-number">100</span>;
+</div><div class="hljs-line">        j=n/<span class="hljs-number">10</span>%<span class="hljs-number">10</span>;
+</div><div class="hljs-line">        k=n%<span class="hljs-number">10</span>;
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(i*<span class="hljs-number">100</span>+j*<span class="hljs-number">10</span>+k==i*i*i+j*j*j+k*k*k)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%-5d"</span>,n);
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-comment">//printf("\n");</span>
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="随机数">随机数</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 10</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-keyword">static</span> <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> k = <span class="hljs-number">-1</span>;
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">startnum</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> seed)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    k = seed;
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-title">randnum</span><span class="hljs-params">(<span class="hljs-keyword">long</span> n)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    k = ((k * <span class="hljs-number">159</span> + <span class="hljs-number">23</span>) % n) + <span class="hljs-number">1</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> k;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">register</span> <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i;
+</div><div class="hljs-line">    <span class="hljs-keyword">long</span> n = <span class="hljs-number">0</span>;
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(!(n&gt;<span class="hljs-number">0</span>&amp;&amp;(k&gt;<span class="hljs-number">0</span>&amp;&amp;k&lt;<span class="hljs-number">65536</span>)))
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Please input two number between 1 and 65535\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%ld%ld"</span>, &amp;k, &amp;n);
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(n&lt;=<span class="hljs-number">0</span>)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"wrong seed!\n"</span>);
+</div><div class="hljs-line">        <span class="hljs-keyword">if</span>(k&lt;=<span class="hljs-number">0</span>||k&gt;=<span class="hljs-number">65536</span>)
+</div><div class="hljs-line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"wrong max random!\n"</span>);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    startnum(n);
+</div><div class="hljs-line">    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;N;i++)
+</div><div class="hljs-line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%6u\n"</span>,randnum(n));
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="杨辉三角">杨辉三角</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs mipsasm"><div class="hljs-line"><span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment">#define N 15</span>
+</div><div class="hljs-line">
+</div><div class="hljs-line">int main()
+</div><div class="hljs-line">{
+</div><div class="hljs-line">    int i, <span class="hljs-keyword">j, </span>n, a[N][N]<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    do
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        printf(<span class="hljs-string">"Input n[1-12]:"</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">        <span class="hljs-keyword">scanf("%d", </span>&amp;n)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    }while(n&lt;<span class="hljs-number">1</span><span class="hljs-title">||</span>n&gt;<span class="hljs-number">12</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i&lt;=n; i++)</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        a[i][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">        a[i][i] = <span class="hljs-number">1</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    for(i=<span class="hljs-number">2</span><span class="hljs-comment">; i&lt;=n; i++)</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=1; </span><span class="hljs-keyword">j&lt;i; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">            a[i][<span class="hljs-keyword">j]=a[i-1][j-1]+a[i-1][j];
+</span></div><div class="hljs-line">    printf(<span class="hljs-string">"\n"</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    for(i=<span class="hljs-number">0</span><span class="hljs-comment">; i&lt;=n; i++)</span>
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;(70-6*i)/2; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">            printf(<span class="hljs-string">" "</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">        for(<span class="hljs-keyword">j=0; </span><span class="hljs-keyword">j&lt;=i; </span><span class="hljs-keyword">j++)
+</span></div><div class="hljs-line">            printf(<span class="hljs-string">"%6d"</span>, a[i][<span class="hljs-keyword">j]);
+</span></div><div class="hljs-line">        printf(<span class="hljs-string">"\n"</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    printf(<span class="hljs-string">"\n"</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line">    return <span class="hljs-number">0</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<h2 id="最大公约数">最大公约数</h2>
+
+<pre class="prettyprint hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</div><div class="hljs-line">
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> x,y,z;
+</div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">gcd</span><span class="hljs-params">(<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>)</span></span>;
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"input two integers:\n"</span>);
+</div><div class="hljs-line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d,%d"</span>,&amp;x,&amp;y);
+</div><div class="hljs-line">    z=gcd(x,y);
+</div><div class="hljs-line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"greatest common divisor is %d\n"</span>,z);
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">gcd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span>
+</span></div><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-keyword">int</span> t,c;
+</div><div class="hljs-line">    <span class="hljs-keyword">if</span>(a&lt;b)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        t=a;
+</div><div class="hljs-line">        a=b;
+</div><div class="hljs-line">        b=t;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    c=a%b;
+</div><div class="hljs-line">    <span class="hljs-keyword">while</span>(c!=<span class="hljs-number">0</span>)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        a=b;
+</div><div class="hljs-line">        b=c;
+</div><div class="hljs-line">        c=a%b;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> b;
+</div><div class="hljs-line">}
+</div></code></pre></div></body></html>
